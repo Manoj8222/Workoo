@@ -60,7 +60,7 @@ public class RegisterController {
             return new ResponseEntity<>("User with this phone number already exists", HttpStatus.CONFLICT);
         }
         System.out.println("Registered");
-        return new ResponseEntity<>("User Registered Successfully", HttpStatus.OK);
+        return new ResponseEntity<>("User Registered Successfully", HttpStatus.FOUND);
     }
 
     //Tasker Registration
@@ -98,6 +98,6 @@ public class RegisterController {
         if (result != 1){
             return new ResponseEntity<>("Failed to Register Tasker", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Tasker Registered Successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Tasker Registered Successfully", HttpStatus.FOUND);
     }
 }
