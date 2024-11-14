@@ -66,14 +66,18 @@ public class TaskerSignUpSecondPage extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
                             if(response.isSuccessful() && response.body() != null){
-                                Toast.makeText(TaskerSignUpSecondPage.this, "Successful", Toast.LENGTH_SHORT).show();
-                                Intent i = new Intent(getApplicationContext(), TaskerHomePage.class);
+                                Intent i = new Intent(getApplicationContext(), UserSignIn.class);
+                                i.putExtra("ISTASKER",true);
                                 startActivity(i);
                                 finish();
-                                Toast.makeText(TaskerSignUpSecondPage.this, "Successful", Toast.LENGTH_SHORT).show();
-                            }else if(response.code() == 409){
-                                Toast.makeText(TaskerSignUpSecondPage.this, "Tasker Already Exist, Please Login", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(TaskerSignUpSecondPage.this, "Registration Successful, Please Login", Toast.LENGTH_SHORT).show();
                             } else if (response.code() == 302) {
+                                Intent i = new Intent(getApplicationContext(), UserSignIn.class);
+                                i.putExtra("ISTASKER",true);
+                                startActivity(i);
+                                finish();
+                                Toast.makeText(TaskerSignUpSecondPage.this, "Registration Successful, Please Login", Toast.LENGTH_SHORT).show();
+                            }else if(response.code() == 409){
                                 Toast.makeText(TaskerSignUpSecondPage.this, "Tasker Already Exist, Please Login", Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(TaskerSignUpSecondPage.this, "Unsuccessful", Toast.LENGTH_SHORT).show();

@@ -63,10 +63,20 @@ public class UserSignUp extends AppCompatActivity {
                             if (response.isSuccessful() && response.code() == 200 && response.body() != null) {
                                 Toast.makeText(UserSignUp.this, "Signup Successful", Toast.LENGTH_SHORT).show();
                                 // Proceed to the next activity
-                                Intent i = new Intent(getApplicationContext(), UserHome.class);
+                                Intent i = new Intent(getApplicationContext(), UserSignIn.class);
+                                i.putExtra("ISTASKER",false);
+                                Toast.makeText(UserSignUp.this, "Registration Successful, Please login", Toast.LENGTH_LONG).show();
+                                i.putExtra("ISTASKER",false);
                                 startActivity(i);
                                 finish();
-                            } else if (response.code() == 409 || response.code() == 302 || response.code() == 303) {
+                            } else if (response.code() == 302) {
+                                Intent i = new Intent(getApplicationContext(), UserSignIn.class);
+                                i.putExtra("ISTASKER",false);
+                                Toast.makeText(UserSignUp.this, "Registration Successful, Please login", Toast.LENGTH_LONG).show();
+                                i.putExtra("ISTASKER",false);
+                                startActivity(i);
+                                finish();
+                            }  else if (response.code() == 409  || response.code() == 303) {
                                 userPhoneNumber.setError("User Already Exists, Please Login");
                             } else {
                                 Toast.makeText(UserSignUp.this, "Error: " + response.code(), Toast.LENGTH_SHORT).show();

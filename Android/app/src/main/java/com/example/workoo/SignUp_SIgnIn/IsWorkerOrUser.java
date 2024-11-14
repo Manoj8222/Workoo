@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.workoo.MainActivity;
 import com.example.workoo.R;
 
 public class IsWorkerOrUser extends AppCompatActivity {
@@ -16,6 +17,8 @@ public class IsWorkerOrUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_is_worker_or_user);
         Button getAJob = findViewById(R.id.getajob);
+        MainActivity m = new MainActivity();
+
         getAJob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

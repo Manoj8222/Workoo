@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.se.omapi.Session;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -22,6 +23,9 @@ import com.example.workoo.MainActivity;
 import com.example.workoo.R;
 import com.example.workoo.Retrofit.RetrofitService;
 import com.example.workoo.Retrofit.ServiceApi;
+import com.example.workoo.SessionManagement.SessionClass;
+import com.example.workoo.TaskerHome.TaskerHomePage;
+import com.example.workoo.UserHome.UserHome;
 import com.example.workoo.model.LoginTasker;
 import com.example.workoo.model.LoginUser;
 import com.example.workoo.model.Tasker;
@@ -51,6 +55,9 @@ public class UserSignIn extends AppCompatActivity {
         Button Login = findViewById(R.id.LogIn);
         Boolean isTasker = getIntent().getExtras().getBoolean("ISTASKER");
 
+        SessionClass sessionClass = new SessionClass(UserSignIn.this);
+
+
 
         ServiceApi userServiceApi = MainActivity.retrofitService.getRetrofit("/api/user/login/").create(ServiceApi.class);
         ServiceApi taskerServiceApi = MainActivity.retrofitService.getRetrofit("/api/tasker/login/").create(ServiceApi.class);
@@ -58,10 +65,16 @@ public class UserSignIn extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isTasker){
+                if (isTasker) {
+                    sessionClass.clearSession();
                     TaskerApiCall(taskerServiceApi);
-                }else {
+                    LoginTasker tasker = new LoginTasker(BigInteger.valueOf(userPhone), userPassword);
+                    sessionClass.saveTaskerSession(tasker);
+                } else {
+                    sessionClass.clearSession();
                     UserApiCall(userServiceApi);
+                    LoginUser user = new LoginUser(BigInteger.valueOf(userPhone), userPassword);
+                    sessionClass.saveUserSession(user);
                 }
             }
         });
@@ -147,7 +160,12 @@ public class UserSignIn extends AppCompatActivity {
                 public void onResponse(Call<User> call, Response<User> response) {
                     if(response.isSuccessful() && response.body() != null){
                         User user = response.body();
-                        Toast.makeText(UserSignIn.this, "User Login Successful", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(UserSignIn.this, "User Login Successful", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(getApplicationContext(), UserHome.class);
+                        i.putExtra( "ISLOGGEDIN", true);
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
+                        finish();
                     } else if (response.code() == 404) {
                         phoneNumber.setError("Phone Number Does Not Exist");
                     } else if (response.code() == 400) {
@@ -175,6 +193,7 @@ public class UserSignIn extends AppCompatActivity {
         }
     }
 
+
     //Tasker Api call
     public void TaskerApiCall(ServiceApi serviceApi){
         if(validatePhone() && validatePassword()){
@@ -184,7 +203,11 @@ public class UserSignIn extends AppCompatActivity {
                 public void onResponse(Call<Tasker> call, Response<Tasker> response) {
                     if(response.isSuccessful() && response.body() != null){
                         Tasker tasker = response.body();
-                        Toast.makeText(UserSignIn.this, "Tasker Login Successful", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(UserSignIn.this, TaskerHomePage.class);
+                        i.putExtra("ISLOGGEDIN", true);
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
+                        finish();
                     } else if (response.code() == 404) {
                         phoneNumber.setError("Phone Number Does Not Exist");
                     } else if (response.code() == 400) {
