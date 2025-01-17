@@ -10,8 +10,8 @@ import com.example.workoo.model.Tasker;
 import com.example.workoo.model.User;
 
 public class SessionClass {
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    static SharedPreferences sharedPreferences;
+    static SharedPreferences.Editor editor;
     private static final String SHARED_PREF_NAME = "session";
     private static final String USER_SESSION_KEY = "user_session";
     private static final String TASKER_SESSION_KEY = "tasker_session";
@@ -24,6 +24,7 @@ public class SessionClass {
 
     public void saveUserSession(LoginUser user){
         int id = (int) (Math.random()*100000);
+        editor.putString("USER",String.valueOf(user.getPhone_number()));
         editor.putInt(USER_SESSION_KEY,id);
         editor.apply();
     }
@@ -36,10 +37,13 @@ public class SessionClass {
 
         return sharedPreferences.getInt(USER_SESSION_KEY,-1);
     }
+    public String getCurrentUser(){
+        return sharedPreferences.getString("USER","null");
+    }
     public int getTaskerSession(){
         return sharedPreferences.getInt(TASKER_SESSION_KEY,-1);
     }
-    public void clearSession() {
+    public static void clearSession() {
         editor.clear().apply();
     }
 }

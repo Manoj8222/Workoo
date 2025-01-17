@@ -12,13 +12,13 @@ public class Tasker {
     private String description;
     private Long fair;
     private String location;
-    private BigDecimal rating; // Optional
+    private Double rating; // Optional
     private String review; // Optional
     private Long totalProject; // Optional
 
     // Constructor
     public Tasker(Long id, String taskerName, Long phoneNumber, String password, byte[] img, String skill,
-                  String description, Long fair, String location, BigDecimal rating, String review, Long totalProject) {
+                  String description, Long fair, String location, Double rating, String review, Long totalProject) {
         this.id = id;
         this.taskerName = taskerName;
         this.phoneNumber = phoneNumber;
@@ -106,11 +106,11 @@ public class Tasker {
         this.location = location;
     }
 
-    public BigDecimal getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(BigDecimal rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 

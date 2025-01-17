@@ -7,21 +7,31 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.se.omapi.Session;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.window.OnBackInvokedDispatcher;
 
 import com.example.workoo.Retrofit.RetrofitService;
+import com.example.workoo.Retrofit.ServiceApi;
 import com.example.workoo.SessionManagement.SessionClass;
 import com.example.workoo.SignUp_SIgnIn.IsWorkerOrUser;
 import com.example.workoo.SignUp_SIgnIn.UserSignIn;
 import com.example.workoo.TaskerHome.TaskerHomePage;
 import com.example.workoo.UserHome.UserHome;
 import com.example.workoo.model.Tasker;
+import com.example.workoo.model.User;
+
+import java.math.BigDecimal;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,10 +40,17 @@ public class MainActivity extends AppCompatActivity {
     Boolean SessionLogin = false;
     Boolean TaskerSession = false;
 
+    public static String UserPhone ;
+    public static Long userId;
+
     @Override
     protected void onStart() {
         super.onStart();
         SessionClass session = new SessionClass(MainActivity.this);
+
+        ServiceApi s = retrofitService.getRetrofit("/api/users/getUserId/").create(ServiceApi.class);
+
+
         int userId = session.getUserSession();
         int taskerId = session.getTaskerSession();
 
@@ -47,12 +64,32 @@ public class MainActivity extends AppCompatActivity {
             isLoggedIn = false;
             SessionLogin = false;
         }
+
+        UserPhone = session.getCurrentUser();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         retrofitService =  new RetrofitService();
+        SessionClass session = new SessionClass(MainActivity.this);
+        ServiceApi s = retrofitService.getRetrofit("/api/users/getUserId/").create(ServiceApi.class);
+        s.getUserId(session.getCurrentUser()).enqueue(new Callback<Long>() {
+            @Override
+            public void onResponse(Call<Long> call, Response<Long> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    userId = response.body();
+                    Log.d("MainActivity123", "User ID: " + userId);
+                } else {
+                    Log.e("MainActivity", "Failed to fetch User ID: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Long> call, Throwable throwable) {
+                Log.e("MainActivity", "API call failed: " + throwable.getMessage());
+            }
+        });
 
         isLoggedIn = getIntent().getBooleanExtra("ISLOGGEDIN",false);
         Handler h = new Handler();
@@ -84,8 +121,19 @@ public class MainActivity extends AppCompatActivity {
                         navigateToHome(UserHome.class);
                     }
                 }
-            },2000);
+            },1500);
+            Animation anim = AnimationUtils.loadAnimation(this,R.anim.scale_up);
             setContentView(R.layout.splash_screen);
+        TextView splashText = findViewById(R.id.SplashText);
+
+        Handler h1 = new Handler();
+        h1.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+//                splashText.setAnimation(anim);
+                splashText.startAnimation(anim);
+            }
+        },0);
 
 
 
@@ -104,5 +152,11 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    public String getUserPhone() {
+        return UserPhone;
+    }
 
+    public void setUserPhone(String userPhone) {
+        UserPhone = userPhone;
+    }
 }

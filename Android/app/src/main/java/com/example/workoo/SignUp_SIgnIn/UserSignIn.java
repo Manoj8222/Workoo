@@ -72,9 +72,12 @@ public class UserSignIn extends AppCompatActivity {
                     sessionClass.saveTaskerSession(tasker);
                 } else {
                     sessionClass.clearSession();
-                    UserApiCall(userServiceApi);
-                    LoginUser user = new LoginUser(BigInteger.valueOf(userPhone), userPassword);
-                    sessionClass.saveUserSession(user);
+                    if(validatePhone() && validatePassword()){
+                        UserApiCall(userServiceApi);
+                        LoginUser user = new LoginUser(BigInteger.valueOf(userPhone), userPassword);
+                        sessionClass.saveUserSession(user);
+                    }
+
                 }
             }
         });
@@ -151,6 +154,14 @@ public class UserSignIn extends AppCompatActivity {
             return true;
         }
     }
+
+    public boolean validateFields(){
+        if(!validatePhone() && !validatePassword()){
+            return true;
+        }else {
+            return false;
+        }
+    }
     //UserApi call
     public void UserApiCall(ServiceApi serviceApi){
         if(validatePhone() && validatePassword()){
@@ -189,7 +200,7 @@ public class UserSignIn extends AppCompatActivity {
             });
         }else{
             validatePassword();
-            Toast.makeText(UserSignIn.this, "All Fields Sould be filled", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserSignIn.this, "End is called", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -233,6 +244,14 @@ public class UserSignIn extends AppCompatActivity {
             validatePassword();
             Toast.makeText(UserSignIn.this, "All Fields Sould be filled", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public Long getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(Long userPhone) {
+        this.userPhone = userPhone;
     }
 
 }
