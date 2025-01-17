@@ -83,7 +83,9 @@ public class LoginController {
 
     @GetMapping("/test")
     public List<String> test(){
-        System.out.println("called");
+        System.out.println("Test Called");
         return stringList;
     }
+
+
 }

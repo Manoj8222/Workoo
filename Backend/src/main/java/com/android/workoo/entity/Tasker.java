@@ -36,6 +36,9 @@ public class Tasker {
     @Column(name = "fair",nullable = false)
     private Long fair;
 
+    @Column(name = "city")
+    private String city;
+
     @Column(name = "location",nullable = false)
     private String location;
 

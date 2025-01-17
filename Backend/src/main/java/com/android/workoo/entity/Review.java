@@ -21,7 +21,7 @@ public class Review {
     private String date;
 
     @Column(name = "rating")
-    private Double rating;
+    private float rating;
 
     @Column(name = "tasker_id")
     private Long taskerId;

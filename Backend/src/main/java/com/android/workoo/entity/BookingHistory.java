@@ -20,7 +20,13 @@ public class BookingHistory {
     @Column(name = "booking_date")
     private String bookingDate;
 
-    @Lob
-    @Column(name = "img")
-    private byte[] img;
+    @Column(name = "booking_time")
+    private String bookingTime;
+
+
+    @Column(name = "task_completed")
+    private boolean taskCompleted;
+
+    @Column(name = "booking_fair")
+    private Long fair;
 }

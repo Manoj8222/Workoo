@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TaskerRepository extends JpaRepository<Tasker,Long> {
@@ -37,4 +39,23 @@ public interface TaskerRepository extends JpaRepository<Tasker,Long> {
                           @Param("rating") BigDecimal rating,
                           @Param("review")String review,
                           @Param("total_project")Long total_project);
+
+
+    //Search Tasker with filters
+    @Query("SELECT t FROM Tasker t " +
+            "WHERE (:skill IS NULL OR t.skill LIKE %:skill%) " +
+            "AND (:city IS NULL OR t.city = :city) " +
+            "AND (:location IS NULL OR t.location = :location) " +
+            "AND (:minFair IS NULL OR t.fair >= :minFair) " +
+            "AND (:maxFair IS NULL OR t.fair <= :maxFair)")
+    List<Tasker> findTaskersWithFilters(
+            @Param("skill") String skill,
+            @Param("city") String city,
+            @Param("location") String location,
+            @Param("minFair") Integer minFair,
+            @Param("maxFair") Integer maxFair
+    );
+    @Query("SELECT t FROM Tasker t LEFT JOIN Favorite f ON t.id = f.taskerId AND f.userId = :userId")
+    List<Tasker> findAllWithFavoriteStatus(@Param("userId") Long userId);
+    Optional<Tasker> findById(Long taskerId);
 }
