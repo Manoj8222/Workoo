@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navHome"
+        android:icon="@drawable/home_art"
+        android:enabled="true"
+        android:title="Home" />
+    <item
+        android:id="@+id/navTask"
+        android:enabled="true"
+        android:icon="@drawable/task_art"
+
+        android:title="Task" />
+    <item
+        android:id="@+id/navMyTasker"
+        android:enabled="true"
+        android:icon="@drawable/favorite_filled"
+        android:title="My Tasker" />
+    <item
+        android:id="@+id/navProfile"
+        android:enabled="true"
+        android:icon="@drawable/profile_filled"
+        android:title="Profile" />
+</menu>

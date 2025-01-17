@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:id="@+id/SearchFragment"
+    tools:context=".UserHome.Fragments.SearchFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        android:padding="16dp">>
+
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="48sp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/search_background"
+            android:gravity="center_vertical"
+            android:iconifiedByDefault="false"
+            android:queryBackground="@null"
+            android:layout_marginTop="18dp"
+            android:queryHint="Search the services you need"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.343"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView23"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search Services"
+            android:textSize="18dp"
+            android:textColor="@color/lightBlack"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            app:layout_constraintStart_toEndOf="@+id/imageView23"
+            app:layout_constraintTop_toTopOf="@+id/imageView23" />
+        <ImageView
+            android:id="@+id/imageView23"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/baseline_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ListView
+            android:id="@+id/searchServiceList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="100dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/searchView" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/servicelListCount"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchView">
+
+            <TextView
+                android:id="@+id/taskerItemCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="359"
+                android:textColor="@color/purple"
+                android:textSize="19dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="results for "
+                android:textColor="@color/purple"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/taskerItemCount"
+                app:layout_constraintStart_toEndOf="@+id/taskerItemCount"
+                app:layout_constraintTop_toTopOf="@+id/taskerItemCount" />
+
+            <TextView
+                android:id="@+id/taskerSkill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:text="Plumber"
+                android:textColor="@color/purple"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView33"
+                app:layout_constraintStart_toEndOf="@+id/textView33"
+                app:layout_constraintTop_toTopOf="@+id/textView33" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ServiceTaskerList"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="142dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/servicelListCount" /></androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</FrameLayout>

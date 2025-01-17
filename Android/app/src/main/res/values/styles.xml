@@ -4,4 +4,10 @@
         <item name="android:fontFamily">@font/poppins_regular</item>
         <item name="android:buttonStyle">@drawable/button_background</item>
     </style>
+    <style name="TabTextStyle" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+    </style>
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/purple</item>
+    </style>
 </resources>

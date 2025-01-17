@@ -2,18 +2,22 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    >
 
-    <TextView
-        android:id="@+id/SplashText"
+
+    <Button
+        android:id="@+id/featureServiceCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
-        android:text="@string/workoo"
-        android:textColor="#6750A4"
-        android:textSize="50sp"
+        android:background="@drawable/button_border_background"
+        android:padding="15dp"
+        android:text="DustProof AC Cover"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

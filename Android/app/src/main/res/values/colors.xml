@@ -3,4 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="purple">#6750A4</color>
+    <color name="gold">#FF9529</color>
+    <color name="lightBlack">#49454F</color>
+    <color name="lightPurple">#E7E0Ec</color>
+
+
 </resources>
